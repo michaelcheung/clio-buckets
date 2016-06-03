@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603205227) do
+ActiveRecord::Schema.define(version: 20160603233147) do
 
   create_table "competencies", force: :cascade do |t|
     t.string  "category", limit: 16,             null: false
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20160603205227) do
   create_table "departments", force: :cascade do |t|
     t.string "name", limit: 255
   end
+
+  create_table "grants", force: :cascade do |t|
+    t.integer  "granter_id",           null: false
+    t.integer  "secondary_granter_id"
+    t.integer  "grantee_id",           null: false
+    t.integer  "competency_id",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "reason"
+  end
+
+  add_index "grants", ["grantee_id"], name: "index_grants_on_grantee_id"
 
   create_table "roles", force: :cascade do |t|
     t.integer "department_id",            null: false

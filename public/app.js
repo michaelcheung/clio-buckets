@@ -18,6 +18,12 @@ app.controller("StupidController", function($http){
     $http.get("/users/"+id+"/competencies").then(function(response){
       ctrl.competencies = response.data
     });
+    $http.get("/users/"+id+"/grants").then(function(response){
+      ctrl.competenciesGranted = {}
+      for(i=0; i < response.data.length; i++){
+        ctrl.competenciesGranted[response.data[i].competency_id] = true
+      }
+    });
   }
 
   return

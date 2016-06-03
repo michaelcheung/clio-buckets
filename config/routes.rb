@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [] do
+    resources :grants, only: [:index]
     resources :competencies, only: [:index]
   end
   

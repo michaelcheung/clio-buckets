@@ -54,11 +54,15 @@
                   <th> Rank </th>
                   <th> Competency </th>
                   <th> Category </th>
+                  <th> Granted? </th>
+                  <th> Actions </th>
                 </tr>
                 <tr ng-repeat="c in ctrl.competencies">
                   <td> {{ c.rank }} </td>
                   <td> {{ c.name }} </td>
                   <td> {{ c.category }} </td>
+                  <td> {{ ctrl.competenciesGranted[c.id] ? "Yes" : "No" }} </td>
+                  <td> <a href> Grant </a> </td>
                 </tr>
               </table>
             </td>
