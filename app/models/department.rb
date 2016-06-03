@@ -1,7 +1,8 @@
 class Department < ActiveRecord::Base
 
-  validates :tribe_id, :name, presence: true
+  validates :id, :name, presence: true
 
-  has_many :users, primary_key: :tribe_id
+  has_many :roles
+  has_many :users
 
 end

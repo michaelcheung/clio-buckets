@@ -19,8 +19,9 @@
       <table>
         <thead>
           <tr>
-            <th> Department </th>
-            <th> Employee </th>
+            <th> Departments </th>
+            <th> Employees </th>
+            <th> Competencies </th>
           </tr>
         </thead>
         <tbody>          
@@ -43,6 +44,17 @@
                      href="#/users/#{employee.id}" 
                      ng-click="ctrl.selectEmployee(employee.id)"> 
                     {{ employee.full_name }} 
+                  </a>
+                </li>
+              </ul>
+            </td>
+            <td ng-if="ctrl.roles">
+              <ul>
+                <li ng-repeat="role in ctrl.roles">
+                  <a 
+                     href="#/roles/#{role.id}" 
+                     ng-click="ctrl.selectRole(role.id)"> 
+                    {{ role.name }} 
                   </a>
                 </li>
               </ul>

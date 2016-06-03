@@ -11,17 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603174856) do
+ActiveRecord::Schema.define(version: 20160603201834) do
 
   create_table "departments", force: :cascade do |t|
-    t.integer "tribe_id",             null: false
-    t.string  "name",     limit: 255
+    t.string "name", limit: 255
   end
 
-  add_index "departments", ["tribe_id"], name: "index_departments_on_tribe_id"
+  create_table "roles", force: :cascade do |t|
+    t.integer "department_id",            null: false
+    t.string  "name",          limit: 64, null: false
+  end
+
+  add_index "roles", ["department_id"], name: "index_roles_on_department_id"
 
   create_table "users", force: :cascade do |t|
-    t.integer "tribe_id",                 null: false
     t.string  "email",         limit: 64, null: false
     t.string  "full_name",     limit: 32, null: false
     t.string  "title",         limit: 64
@@ -32,6 +35,5 @@ ActiveRecord::Schema.define(version: 20160603174856) do
   add_index "users", ["department_id"], name: "index_users_on_department_id"
   add_index "users", ["email"], name: "index_users_on_email"
   add_index "users", ["manager_id"], name: "index_users_on_manager_id"
-  add_index "users", ["tribe_id"], name: "index_users_on_tribe_id"
 
 end

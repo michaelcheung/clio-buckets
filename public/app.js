@@ -12,6 +12,7 @@ app.controller("StupidController", function($http){
     $http.get("/departments/"+id+"/users.json").then(function(response){
       ctrl.employees = response.data
     });
+
   }
 
   return
