@@ -12,7 +12,7 @@ module Tribe
         #next unless user_record["id"].to_i > 196
         user_record = HTTParty.get("#{base_url}/users/#{tribeid}.json", headers: {"Authorization" => "Basic #{basic_auth}", "X-API-VERSION" => "2.0.0"}).parsed_response
 
-        user = User.find_or_initialize_by(tribe_id: tribeid)
+        user = User.find_or_initialize_by(id: tribeid)
         assignment = user_record["assignment_record"]
         if assignment["manager"].present?
           manager_id = assignment["manager"]["id"]
@@ -24,7 +24,7 @@ module Tribe
         if assignment["department"].present?
           department_id = assignment["department"]["id"]
           department_name = assignment["department"]["name"]
-          Department.find_or_initialize_by(tribe_id: department_id).update_attributes!(name: department_name)
+          Department.find_or_initialize_by(id: department_id).update_attributes!(name: department_name)
         end
 
         user.update_attributes!(email: user_record["email"], full_name: user_record["display_name"], title: title, manager_id: manager_id, department_id: department_id)

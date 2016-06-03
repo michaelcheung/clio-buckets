@@ -213,6 +213,5 @@ UserRole.create([
   { user_id: 68, role_id: 2 },
   { user_id: 141, role_id: 3 },
   { user_id: 87, role_id: 4 },
-  { user_id: 55, role_id: 5 },
-            
+  { user_id: 55, role_id: 5 },            
 ])
