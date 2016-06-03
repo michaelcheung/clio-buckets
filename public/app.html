@@ -49,11 +49,18 @@
               </ul>
             </td>
             <td ng-if="ctrl.competencies">
-              <ul>
-                <li ng-repeat="c in ctrl.competencies">
-                  {{ c }} 
-                </li>
-              </ul>
+              <table>
+                <tr>
+                  <th> Rank </th>
+                  <th> Competency </th>
+                  <th> Category </th>
+                </tr>
+                <tr ng-repeat="c in ctrl.competencies">
+                  <td> {{ c.rank }} </td>
+                  <td> {{ c.name }} </td>
+                  <td> {{ c.category }} </td>
+                </tr>
+              </table>
             </td>
           </tr>
         </tbody>
