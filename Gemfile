@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.1.5'
 
+gem 'devise'
+
 gem 'httparty'
 
 gem "omniauth-google-oauth2"
