@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :department, primary_key: :tribe_id
   belongs_to :manager, primary_key: :tribe_id, class_name: "User"
 
-  has_many :employees, primary_key: :tribe_id, foreign_key: :manager_id, class_name: "User"
+  has_many :direct_reports, primary_key: :tribe_id, foreign_key: :manager_id, class_name: "User"
 
   def self.from_omniauth(access_token)
     data = access_token.info
