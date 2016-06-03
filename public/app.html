@@ -1,9 +1,55 @@
-<html>
+<html ng-app="clioBucketsApp">
   <head>
     <title> Clio Buckets </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="/app.js"></script>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+      }
+      html {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+      }
+
+    </style>
   </head>
   <body>
     <h1> The app </h1>
-
+    <div ng-controller="StupidController as ctrl">
+      <table>
+        <thead>
+          <tr>
+            <th> Department </th>
+            <th> Employee </th>
+          </tr>
+        </thead>
+        <tbody>          
+          <tr>
+            <td>
+              <ul>
+                <li ng-repeat="department in ctrl.departments">
+                  <a 
+                     href="#/department/{{department.id}}/users" 
+                     ng-click="ctrl.selectDepartment(department.id)"> 
+                    {{ department.name }} 
+                  </a>
+                </li>
+              </ul>
+            </td>
+            <td ng-if="ctrl.employees">
+              <ul>
+                <li ng-repeat="employee in ctrl.employees">
+                  <a 
+                     href="#/users/#{employee.id}" 
+                     ng-click="ctrl.selectEmployee(employee.id)"> 
+                    {{ employee.full_name }} 
+                  </a>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>      
+    </div>
   </body>
 </html>
