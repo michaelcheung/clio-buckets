@@ -200,18 +200,22 @@ User.create!([
   {id: 304, email: "allison.mcgerrigle@clio.com", full_name: "Allison McGerrigle", title: "Talent Generalist", manager_id: 126, department_id: 16}
 ])
 
-Role.create!([
+roles = Role.create!([
   { id: 1, department_id: 19, name: "QA" },
   { id: 2, department_id: 19, name: "Web - Backend" },
   { id: 3, department_id: 19, name: "Web - Frontend" },
   { id: 4, department_id: 19, name: "iOS" },
   { id: 5, department_id: 19, name: "Android" },
+  { id: 6, department_id: 19, name: "Specialist" },
 ])
 
+# Incomplete list
 UserRole.create([
   { user_id: 176, role_id: 1 },
   { user_id: 68, role_id: 2 },
+  { user_id: 68, role_id: 6 },
   { user_id: 141, role_id: 3 },
   { user_id: 87, role_id: 4 },
   { user_id: 55, role_id: 5 },            
 ])
+

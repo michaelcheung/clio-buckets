@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603204814) do
+ActiveRecord::Schema.define(version: 20160603205227) do
+
+  create_table "competencies", force: :cascade do |t|
+    t.string  "category", limit: 16,             null: false
+    t.string  "name",     limit: 16,             null: false
+    t.integer "rank",                default: 0, null: false
+  end
+
+  create_table "competency_roles", force: :cascade do |t|
+    t.integer "competency_id", null: false
+    t.integer "role_id",       null: false
+  end
 
   create_table "departments", force: :cascade do |t|
     t.string "name", limit: 255
