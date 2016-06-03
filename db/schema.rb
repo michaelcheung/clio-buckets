@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160603174856) do
     t.integer "tribe_id",                  null: false
     t.string  "email",         limit: 255, null: false
     t.string  "full_name",     limit: 255, null: false
-    t.string  "title",         limit: 255, null: false
+    t.string  "title",         limit: 255
     t.integer "manager_id"
     t.integer "department_id"
   end

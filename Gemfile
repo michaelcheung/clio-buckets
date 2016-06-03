@@ -4,6 +4,8 @@ ruby '2.1.5'
 
 gem 'httparty'
 
+gem "omniauth-google-oauth2"
+
 gem 'rails', '4.2.6'
 
 gem 'rails-api'
