@@ -7,4 +7,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
   end
 
+  resources :users, only: [] do
+    resources :competencies, only: [:index]
+  end
+  
 end

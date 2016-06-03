@@ -41,7 +41,7 @@
               <ul>
                 <li ng-repeat="employee in ctrl.employees">
                   <a 
-                     href="#/users/#{employee.id}" 
+                     href="#/users/#{employee.id}/competencies" 
                      ng-click="ctrl.selectEmployee(employee.id)"> 
                     {{ employee.full_name }} 
                   </a>
@@ -49,6 +49,11 @@
               </ul>
             </td>
             <td ng-if="ctrl.competencies">
+              <ul>
+                <li ng-repeat="c in ctrl.competencies">
+                  {{ c }} 
+                </li>
+              </ul>
             </td>
           </tr>
         </tbody>
