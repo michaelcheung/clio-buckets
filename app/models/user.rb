@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :employees, primary_key: :tribe_id, foreign_key: :manager_id, class_name: "User"
 
   def self.from_omniauth(access_token)
-    data = access_token_info
+    data = access_token.info
     User.where(email: data["email"]).first
   end
 
