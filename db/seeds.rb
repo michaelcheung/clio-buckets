@@ -208,6 +208,11 @@ Role.create!([
   { id: 5, department_id: 19, name: "Android" },
 ])
 
-RolesUsers.create([
-
+UserRole.create([
+  { user_id: 176, role_id: 1 },
+  { user_id: 68, role_id: 2 },
+  { user_id: 141, role_id: 3 },
+  { user_id: 87, role_id: 4 },
+  { user_id: 55, role_id: 5 },
+            
 ])

@@ -48,16 +48,7 @@
                 </li>
               </ul>
             </td>
-            <td ng-if="ctrl.roles">
-              <ul>
-                <li ng-repeat="role in ctrl.roles">
-                  <a 
-                     href="#/roles/#{role.id}" 
-                     ng-click="ctrl.selectRole(role.id)"> 
-                    {{ role.name }} 
-                  </a>
-                </li>
-              </ul>
+            <td ng-if="ctrl.competencies">
             </td>
           </tr>
         </tbody>
