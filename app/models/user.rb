@@ -18,4 +18,24 @@ class User < ActiveRecord::Base
     User.where(email: data["email"]).first
   end
 
+  def self.find_for_manager(manager, id)
+    User.find(id).tap do |user|
+      manager = user.manager
+      while manager != current_user
+        raise ActiveRecord::RecordNotFound if manager.nil?
+        manager = manager.manager
+      end
+    end
+  end
+
+  def update_roles(ids)
+    return if ids.nil?
+    roles = department.roles.where(id: ids).pluck(:id)
+    all_roles = roles.pluck(:id)
+
+    user_roles.where(id: all_roles - roles).delete_all
+    (roles - all_roles).each{|r| user_roles.create!(role_id: r) }
+
+  end
+
 end

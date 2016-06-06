@@ -49,6 +49,7 @@ app.controller("StupidController", function($http){
   ctrl.selectAction = function(action){
     if(action == "Users"){
       ctrl.findUsers();
+      ctrl.findRoles();
     } else if(action == "Competencies"){
       ctrl.findCompetencies();
     }  
@@ -61,9 +62,24 @@ app.controller("StupidController", function($http){
     });
   }
 
+  ctrl.updateUserRoles = function(){
+    var userRoles = ctrl.user.roles.map(function(e){ return e.id });
+    $http.put("/users/"+ctrl.user.id+".json", { roles: userRoles }).then(function(response){
+
+    });    
+  }
+
+  ctrl.findRoles = function(){
+    ctrl.competencies = null;
+    $http.get("/departments/"+ctrl.departmentId+"/roles.json").then(function(response){
+      ctrl.roles = response.data
+    });
+  }
+
   ctrl.findCompetencies = function(){
     ctrl.users = null;
     ctrl.userCompetencies = null;
+    ctrl.roles = null
     $http.get("/departments/"+ctrl.departmentId+"/competencies.json").then(function(response){
       ctrl.competencies = response.data
     });

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
   end
 
-  resources :users, only: [] do
+  resources :users, only: [:update] do
     resources :grants, only: [:index]
     resources :competencies, only: [:index]
   end

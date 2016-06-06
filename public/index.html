@@ -37,6 +37,12 @@
 
       <div ng-if="ctrl.action == 'Competencies'">
         <h2> Competencies <a href> New </a>  </h2>
+        <label ng-if="ctrl.departmentId"> Rank
+          <select
+             ng-model="ctrl.competencyRank"
+             ng-options="key as value for (key, value) in ctrl.rankMap">
+          </select>
+        </label>
         <table>
           <tr>
             <th> Rank </th>
@@ -47,7 +53,7 @@
               Actions
             </th>
           </tr>
-          <tr ng-repeat="c in ctrl.competencies | orderBy: ['rank', 'category', 'name']">
+          <tr ng-repeat="c in ctrl.competencies | filter: { rank: ctrl.competencyRank}  | orderBy: ['rank', 'category', 'name']">
             <td> {{ ctrl.rankMap[c.rank] }} </td>
             <td> {{ c.name }} </td>
             <td> {{ c.category }} </td>
@@ -62,12 +68,22 @@
       <div ng-if="ctrl.action == 'Users'">
         <label> Users
           <select
-             ng-model="ctrl.userId"
-             ng-change="ctrl.selectUser(ctrl.userId)"
-             ng-options="option.id as option.full_name for option in ctrl.users">
+             ng-model="ctrl.user"
+             ng-change="ctrl.selectUser(ctrl.user.id)"
+             ng-options="option as option.full_name for option in ctrl.users">
           </select>
         </label>
-        <table ng-if="ctrl.userId">
+        <div ng-if="ctrl.user">
+          <label> Update Roles
+            <select
+               multiple="multiple"
+               ng-model="ctrl.user.roles"
+               ng-options="option as option.name for option in ctrl.roles track by option.id">
+            </select>
+          </label>
+          <button ng-click="ctrl.updateUserRoles()"> Update </button>
+        </div>
+        <table ng-if="ctrl.user">
           <tr>
             <th> Rank </th>
             <th> Competency </th>

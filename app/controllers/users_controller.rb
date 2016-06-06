@@ -6,4 +6,12 @@ class UsersController < ApplicationController
     render json: @users
   end
 
+  def update
+    user = User.find_for_manager(current_user, params.require(:id))
+    
+    user.update_roles(params[:roles])
+
+    render json: user
+  end
+
 end
