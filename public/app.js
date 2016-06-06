@@ -33,14 +33,27 @@ app.controller("StupidController", function($http){
   });
 
   ctrl.selectDepartment = function(id){    
-    $http.get("/departments/"+id+"/users.json").then(function(response){
+    ctrl.departmentId = id
+  }
+
+  ctrl.findUsers = function(){
+    ctrl.competencies = null;
+    $http.get("/departments/"+ctrl.departmentId+"/users.json").then(function(response){
       ctrl.employees = response.data
+    });
+  }
+
+  ctrl.findCompetencies = function(){
+    ctrl.employees = null;
+    ctrl.userCompetencies = null;
+    $http.get("/departments/"+ctrl.departmentId+"/competencies.json").then(function(response){
+      ctrl.competencies = response.data
     });
   }
 
   ctrl.selectEmployee = function(id){    
     $http.get("/users/"+id+"/competencies").then(function(response){
-      ctrl.competencies = response.data
+      ctrl.userCompetencies = response.data
     });
     $http.get("/users/"+id+"/grants").then(function(response){
       ctrl.competenciesGranted = {}

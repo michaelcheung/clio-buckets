@@ -23,6 +23,7 @@
         <thead>
           <tr>
             <th> Departments </th>
+            <th> Action </th>
             <th> Employees </th>
             <th> Competencies </th>
           </tr>
@@ -33,15 +34,33 @@
               <ul>
                 <li ng-repeat="department in ctrl.departments">
                   <a 
-                     href="#/department/{{department.id}}/users" 
+                     href="#/department/{{department.id}}" 
                      ng-click="ctrl.selectDepartment(department.id)"> 
                     {{ department.name }} 
                   </a>
                 </li>
               </ul>
             </td>
-            <td ng-if="ctrl.employees">
+            <td ng-if="ctrl.departmentId">
               <ul>
+                <li>
+                  <a
+                     href="#/department/{{department.id}}/competencies" 
+                     ng-click="ctrl.findCompetencies()"> 
+                    Competencies
+                  </a>
+                </li>
+                <li>
+                  <a
+                     href="#/department/{{department.id}}/users" 
+                     ng-click="ctrl.findUsers()"> 
+                    Users
+                  </a>
+                </li>
+              </ul>
+            </td>
+            <td>
+              <ul ng-if="ctrl.employees">
                 <li ng-repeat="employee in ctrl.employees">
                   <a 
                      href="#/users/#{employee.id}/competencies" 
@@ -51,8 +70,8 @@
                 </li>
               </ul>
             </td>
-            <td ng-if="ctrl.competencies">
-              <table>
+            <td>
+              <table ng-if="ctrl.userCompetencies">
                 <tr>
                   <th> Rank </th>
                   <th> Competency </th>
@@ -60,7 +79,7 @@
                   <th> Granted? </th>
                   <th> Actions </th>
                 </tr>
-                <tr ng-repeat="c in ctrl.competencies">
+                <tr ng-repeat="c in ctrl.userCompetencies">
                   <td> {{ c.rank }} </td>
                   <td> {{ c.name }} </td>
                   <td> {{ c.category }} </td>
