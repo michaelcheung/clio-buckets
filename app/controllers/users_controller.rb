@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def who_am_i
-    render json: current_user
+    render json: current_user, serializer: UserSerializer
   end
   
   def update

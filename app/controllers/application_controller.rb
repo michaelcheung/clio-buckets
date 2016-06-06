@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   respond_to :json
 
   
+  include ActionController::Serialization
   include ActionController::RequestForgeryProtection
   include ActionController::Cookies
   include ActionController::RespondWith

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603233147) do
+ActiveRecord::Schema.define(version: 20160606231352) do
 
   create_table "competencies", force: :cascade do |t|
     t.string  "category", limit: 32,              null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160603233147) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "reason"
+    t.boolean  "approved"
   end
 
   add_index "grants", ["grantee_id"], name: "index_grants_on_grantee_id"

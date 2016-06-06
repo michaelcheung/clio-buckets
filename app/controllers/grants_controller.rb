@@ -7,9 +7,11 @@ class GrantsController < ApplicationController
   end
 
   def create
-    user = User.find_for_manager(current_user, params.require(:user_id))
+    user = current_user.department.users.find(params.require(:user_id))
     competency = user.competencies.find(params[:competency_id])
-    grant = Grant.create!(grantee: user, granter: current_user, competency: competency, reason: params[:reason])
+    grant = Grant.new(grantee: user, granter: current_user, competency: competency, reason: params[:reason])
+    grant.approved = true if user.managers.include?(current_user)
+    grant.save!
     render json: grant                      
   end
 

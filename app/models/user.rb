@@ -21,11 +21,15 @@ class User < ActiveRecord::Base
   def self.find_for_manager(manager, id)
     User.find(id).tap do |user|
       user_manager = user.manager
-      while user_manager != manager
-        raise ActiveRecord::RecordNotFound if user_manager.nil?
-        user_manager = user_manager.manager
+      while user_manager != manager       
+        raise ActiveRecord::RecordNotFound if user.managers.exclude?(manager)
       end
     end
+  end
+
+  def managers
+    return [] if manager.nil?
+    [manager].concat(manager.managers)
   end
 
   def update_roles(ids)

@@ -92,10 +92,12 @@
             <td> {{ ctrl.rankMap[c.rank] }} </td>
             <td> {{ c.name }} </td>
             <td> {{ c.category }} </td>
-            <td> {{ ctrl.competenciesGranted[c.id] ? "Yes" : "No" }} </td>
+            <td> {{ ctrl.competenciesGranted[c.id] || "No" }} </td>
             <td> 
-              <a ng-if="ctrl.directReports[ctrl.user.id]" href="#" ng-click="ctrl.createGrant(c.id)"> Grant </a> 
-              <a ng-if="!ctrl.directReports[ctrl.user.id]" href="#" ng-click=""> Recommend </a> 
+              {{ ctrl.directReports[ctrl.user.id] && (!ctrl.competenciesGranted[c.id] || ctrl.competenciesGranted[c.id] == 'No') }}
+              <a ng-if="ctrl.directReports[ctrl.user.id] && (!ctrl.competenciesGranted[c.id] || ctrl.competenciesGranted[c.id] == 'No')" href="#" ng-click="ctrl.createGrant(c.id)"> 
+                {{ ctrl.directReports[ctrl.user.id] ? 'Grant' : 'Recommend' }}
+              </a> 
             </td>
           </tr>
         </table>

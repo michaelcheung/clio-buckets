@@ -95,14 +95,28 @@ app.controller("StupidController", function($http){
     $http.get("/users/"+ctrl.user.id+"/grants").then(function(response){
       ctrl.competenciesGranted = {}
       for(i=0; i < response.data.length; i++){
-        ctrl.competenciesGranted[response.data[i].competency_id] = true
+        grant = response.data[i]
+        if(grant.approved) {
+          ctrl.competenciesGranted[grant.competency_id] = "Yes"
+        } else if(grant.approved === null) {
+          ctrl.competenciesGranted[grant.competency_id] = "Recommended"
+        } else {
+          ctrl.competenciesGranted[grant.competency_id] = "No"
+        }
       }
     });
   }
 
   ctrl.createGrant = function(competencyId){
     $http.post("/users/"+ctrl.user.id+"/grants", { reason: "", competency_id: competencyId }).then(function(response){
-      ctrl.competenciesGranted[response.data.competency_id] = true
+      grant = response.data
+      if(grant.approved) {
+        ctrl.competenciesGranted[grant.competency_id] = "Yes"
+      } else if(grant.approved === null) {
+        ctrl.competenciesGranted[grant.competency_id] = "Recommended"
+      } else {
+        ctrl.competenciesGranted[grant.competency_id] = "No"
+      }
     });
     
   }
