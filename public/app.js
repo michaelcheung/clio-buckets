@@ -7,7 +7,7 @@ app.service("loggedOutInterceptor", function($q){
       if(response.status == 401){
         window.location = "/unauthed.html"
       }        
-      $q.reject(response)
+      return $q.reject(response)
     }
   }
 });
@@ -19,14 +19,16 @@ app.config(function($httpProvider){
 app.controller("LogoutDirective", function($http){
   var ctrl = this;
   ctrl.logout = function(){
-    $http.delete("logout");
+    $http.delete("logout.json").then(function(){
+      window.location = "/unauthed.html"    
+    });
   }
 })
 
 
 app.controller("StupidController", function($http){
   var ctrl = this
-  $http.get("/departments.json").then(function(response){
+  $http.get("/departments.json").then(function(response){    
     ctrl.departments = response.data
   });
 

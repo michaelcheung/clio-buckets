@@ -164,6 +164,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   rails (= 4.2.6)
   rails-api
+  responders
   seed_dump
   spring
   sqlite3

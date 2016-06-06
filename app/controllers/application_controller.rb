@@ -1,16 +1,22 @@
 class ApplicationController < ActionController::API
+  self.responder = ApplicationResponder
+  respond_to :json
+
   
   include ActionController::RequestForgeryProtection
+  include ActionController::Cookies
+  include ActionController::RespondWith
+  include ActionController::MimeResponds
 
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   after_filter :set_csrf_cookie
 
-  def after_sign_oput_path_for(user)
+  def after_sign_out_path_for(user)
     "/unauthed.html"
   end
 
-  def set_csrf_cookie_for_ng
+  def set_csrf_cookie
     # Set the CSRF cookie to be picked up by Angular if the response is NOT committed
     if protect_against_forgery? && !response.committed?
       cookies['XSRF-TOKEN'] = {
