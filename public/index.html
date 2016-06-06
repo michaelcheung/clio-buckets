@@ -93,7 +93,7 @@
             <td> {{ c.name }} </td>
             <td> {{ c.category }} </td>
             <td> {{ ctrl.competenciesGranted[c.id] ? "Yes" : "No" }} </td>
-            <td> <a href> Grant </a> </td>
+            <td> <a href="#" ng-click="ctrl.createGrant(c.id)"> Grant </a> </td>
           </tr>
         </table>
       </div>

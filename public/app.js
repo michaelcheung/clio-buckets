@@ -93,5 +93,12 @@ app.controller("StupidController", function($http){
     });
   }
 
+  ctrl.createGrant = function(competencyId){
+    $http.post("/users/"+ctrl.user.id+"/grants", { reason: "", competency_id: competencyId }).then(function(response){
+      ctrl.competenciesGranted[response.data.competency_id] = true
+    });
+    
+  }
+
   return
 });
