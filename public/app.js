@@ -32,6 +32,13 @@ app.controller("StupidController", function($http){
     ctrl.departments = response.data
   });
 
+  $http.get("/users/who_am_i.json").then(function(response){    
+    ctrl.directReports = {}
+    for(i=0; i < response.data.direct_reports.length; i++){
+      ctrl.directReports[response.data.direct_reports[i].id] = true
+    }
+  });
+
   ctrl.rankMap = {
     0: "Tech I",
     1: "Tech I+",

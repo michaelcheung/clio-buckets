@@ -70,7 +70,7 @@
              ng-options="option as option.full_name for option in ctrl.users">
           </select>
         </label>
-        <div ng-if="ctrl.user">
+        <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.id]">
           <label> Update Roles
             <select
                multiple="multiple"
@@ -93,7 +93,10 @@
             <td> {{ c.name }} </td>
             <td> {{ c.category }} </td>
             <td> {{ ctrl.competenciesGranted[c.id] ? "Yes" : "No" }} </td>
-            <td> <a href="#" ng-click="ctrl.createGrant(c.id)"> Grant </a> </td>
+            <td> 
+              <a ng-if="ctrl.directReports[ctrl.user.id]" href="#" ng-click="ctrl.createGrant(c.id)"> Grant </a> 
+              <a ng-if="!ctrl.directReports[ctrl.user.id]" href="#" ng-click=""> Recommend </a> 
+            </td>
           </tr>
         </table>
       </div>

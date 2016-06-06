@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   end
   
   resources :users, only: [:update] do
+    collection do
+      get :who_am_i
+    end
     resources :grants, only: [:index, :create]
     resources :competencies, only: [:index]
   end
