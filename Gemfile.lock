@@ -163,7 +163,7 @@ DEPENDENCIES
   devise
   httparty
   omniauth-google-oauth2
-  pg
+  pg (= 0.18.4)
   rails (= 4.2.6)
   rails-api
   responders
