@@ -16,9 +16,13 @@ gem 'rails-api'
 
 gem 'responders'
 
-gem 'sqlite3'
+
+group :production do
+  gem 'pg'
+end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'seed_dump'
   gem 'spring'
   gem 'byebug', '~> 3.5.1'
