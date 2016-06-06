@@ -19,78 +19,71 @@
       <a href="#logout" ng-click="ctrl.logout()"> Logout </a>
     </h3>
     <div ng-controller="StupidController as ctrl">
-      <table>
-        <thead>
+      <label> Department
+        <select
+           ng-model="ctrl.departmentId"
+           ng-change="ctrl.selectDepartment(ctrl.departmentId)"
+           ng-options="option.id as option.name for option in ctrl.departments">
+        </select>
+      </label>
+      <label ng-if="ctrl.departmentId"> Action
+        <select
+           ng-model="ctrl.action"
+           ng-change="ctrl.selectAction(ctrl.action)">
+          <option value="Competencies"> Competencies </option>
+          <option value="Users"> Users </option>
+        </select>
+      </label>
+
+      <div ng-if="ctrl.action == 'Competencies'">
+        <h2> Competencies <a href> New </a>  </h2>
+        <table>
           <tr>
-            <th> Departments </th>
-            <th> Action </th>
-            <th> Employees </th>
-            <th> Competencies </th>
+            <th> Rank </th>
+            <th> Competency </th>
+            <th> Category </th>
+            <th> Roles </th>
+            <th> 
+              Actions
+            </th>
           </tr>
-        </thead>
-        <tbody>          
-          <tr>
-            <td>
-              <ul>
-                <li ng-repeat="department in ctrl.departments">
-                  <a 
-                     href="#/department/{{department.id}}" 
-                     ng-click="ctrl.selectDepartment(department.id)"> 
-                    {{ department.name }} 
-                  </a>
-                </li>
-              </ul>
-            </td>
-            <td ng-if="ctrl.departmentId">
-              <ul>
-                <li>
-                  <a
-                     href="#/department/{{department.id}}/competencies" 
-                     ng-click="ctrl.findCompetencies()"> 
-                    Competencies
-                  </a>
-                </li>
-                <li>
-                  <a
-                     href="#/department/{{department.id}}/users" 
-                     ng-click="ctrl.findUsers()"> 
-                    Users
-                  </a>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <ul ng-if="ctrl.employees">
-                <li ng-repeat="employee in ctrl.employees">
-                  <a 
-                     href="#/users/#{employee.id}/competencies" 
-                     ng-click="ctrl.selectEmployee(employee.id)"> 
-                    {{ employee.full_name }} 
-                  </a>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <table ng-if="ctrl.userCompetencies">
-                <tr>
-                  <th> Rank </th>
-                  <th> Competency </th>
-                  <th> Category </th>
-                  <th> Granted? </th>
-                  <th> Actions </th>
-                </tr>
-                <tr ng-repeat="c in ctrl.userCompetencies">
-                  <td> {{ c.rank }} </td>
-                  <td> {{ c.name }} </td>
-                  <td> {{ c.category }} </td>
-                  <td> {{ ctrl.competenciesGranted[c.id] ? "Yes" : "No" }} </td>
-                  <td> <a href> Grant </a> </td>
-                </tr>
-              </table>
+          <tr ng-repeat="c in ctrl.competencies | orderBy: ['rank', 'category', 'name']">
+            <td> {{ ctrl.rankMap[c.rank] }} </td>
+            <td> {{ c.name }} </td>
+            <td> {{ c.category }} </td>
+            <td> <span ng-repeat="role in c.roles | orderBy: 'name'"> {{ role.name }}, </span> </td>
+            <td> 
+              <a href> Edit </a> 
             </td>
           </tr>
-        </tbody>
-      </table>      
+        </table>
+      </div>
+
+      <div ng-if="ctrl.action == 'Users'">
+        <label> Users
+          <select
+             ng-model="ctrl.userId"
+             ng-change="ctrl.selectUser(ctrl.userId)"
+             ng-options="option.id as option.full_name for option in ctrl.users">
+          </select>
+        </label>
+        <table ng-if="ctrl.userId">
+          <tr>
+            <th> Rank </th>
+            <th> Competency </th>
+            <th> Category </th>
+            <th> Granted? </th>
+            <th> Actions </th>
+          </tr>
+          <tr ng-repeat="c in ctrl.userCompetencies | orderBy: ['rank', 'category', 'name']">
+            <td> {{ ctrl.rankMap[c.rank] }} </td>
+            <td> {{ c.name }} </td>
+            <td> {{ c.category }} </td>
+            <td> {{ ctrl.competenciesGranted[c.id] ? "Yes" : "No" }} </td>
+            <td> <a href> Grant </a> </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </body>
 </html>

@@ -1,8 +1,12 @@
 class CompetenciesController < ApplicationController
 
   def index
-    user = User.find(params.require(:user_id))
-    @competencies = user.competencies.limit(100).order(:rank)
+    if params[:user_id]
+      scope = User.find(params.require(:user_id)).competencies
+    else
+      scope = Department.find(params.require(:department_id)).competencies
+    end
+    @competencies = scope.preload(:roles).limit(200).order(:rank)
     render json: @competencies
   end
 

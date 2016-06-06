@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :departments, only: [:index] do
+    resources :competencies, only: [:index]
     resources :roles, only: [:index]
     resources :users, only: [:index]
   end

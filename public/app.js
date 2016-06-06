@@ -26,32 +26,50 @@ app.controller("LogoutDirective", function($http){
 })
 
 
-app.controller("StupidController", function($http){
+app.controller("StupidController", function($http){  
   var ctrl = this
   $http.get("/departments.json").then(function(response){    
     ctrl.departments = response.data
   });
 
+  ctrl.rankMap = {
+    0: "Tech I",
+    1: "Tech I+",
+    2: "Tech II",
+    3: "Tech II+",
+    4: "Tech III",
+    5: "Tech III+",
+    6: "Specialist",
+  }
+
   ctrl.selectDepartment = function(id){    
     ctrl.departmentId = id
+  }
+
+  ctrl.selectAction = function(action){
+    if(action == "Users"){
+      ctrl.findUsers();
+    } else if(action == "Competencies"){
+      ctrl.findCompetencies();
+    }  
   }
 
   ctrl.findUsers = function(){
     ctrl.competencies = null;
     $http.get("/departments/"+ctrl.departmentId+"/users.json").then(function(response){
-      ctrl.employees = response.data
+      ctrl.users = response.data
     });
   }
 
   ctrl.findCompetencies = function(){
-    ctrl.employees = null;
+    ctrl.users = null;
     ctrl.userCompetencies = null;
     $http.get("/departments/"+ctrl.departmentId+"/competencies.json").then(function(response){
       ctrl.competencies = response.data
     });
   }
 
-  ctrl.selectEmployee = function(id){    
+  ctrl.selectUser = function(id){    
     $http.get("/users/"+id+"/competencies").then(function(response){
       ctrl.userCompetencies = response.data
     });

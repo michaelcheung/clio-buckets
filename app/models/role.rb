@@ -5,7 +5,7 @@ class Role < ActiveRecord::Base
   belongs_to :department
 
   has_many :competency_roles
-  has_many :competencies, -> { uniq }, through: :competency_roles
+  has_many :competencies, through: :competency_roles
 
 
   has_many :user_roles
