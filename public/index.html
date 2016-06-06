@@ -14,8 +14,10 @@
     </style>
   </head>
   <body>
-    <h1> The app </h1>    
-    <h3>  </h3>
+    <h1> The app </h1>  
+    <h3 ng-controller="LogoutDirective as ctrl"> 
+      <a href="#logout" ng-click="ctrl.logout()"> Logout </a>
+    </h3>
     <div ng-controller="StupidController as ctrl">
       <table>
         <thead>
