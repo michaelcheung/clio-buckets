@@ -47,7 +47,6 @@
             <th> Rank </th>
             <th> Competency </th>
             <th> Category </th>
-            <th> Roles </th>
             <th> 
               Actions
             </th>
@@ -56,7 +55,6 @@
             <td> {{ ctrl.rankMap[c.rank] }} </td>
             <td> {{ c.name }} </td>
             <td> {{ c.category }} </td>
-            <td> <span ng-repeat="role in c.roles | orderBy: 'name'"> {{ role.name }}, </span> </td>
             <td> 
               <a href> Edit </a> 
             </td>

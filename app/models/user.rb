@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
     User.find(id).tap do |user|
       user_manager = user.manager
       while user_manager != manager
-        raise ActiveRecord::RecordNotFound if manager.nil?
+        raise ActiveRecord::RecordNotFound if user_manager.nil?
         user_manager = user_manager.manager
       end
     end
