@@ -1,8 +1,8 @@
 class CreateCompetencies < ActiveRecord::Migration
   def change
     create_table :competencies do |t|
-      t.string :category, null: false, limit: 16
-      t.string :name, null: false, limit: 16
+      t.string :category, null: false, limit: 32
+      t.string :name, null: false, limit: 255
       t.integer :rank, null: false, default: 0
     end
     create_table :competency_roles do |t|

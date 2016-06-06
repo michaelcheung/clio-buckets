@@ -14,9 +14,9 @@
 ActiveRecord::Schema.define(version: 20160603233147) do
 
   create_table "competencies", force: :cascade do |t|
-    t.string  "category", limit: 16,             null: false
-    t.string  "name",     limit: 16,             null: false
-    t.integer "rank",                default: 0, null: false
+    t.string  "category", limit: 32,              null: false
+    t.string  "name",     limit: 255,             null: false
+    t.integer "rank",                 default: 0, null: false
   end
 
   create_table "competency_roles", force: :cascade do |t|
