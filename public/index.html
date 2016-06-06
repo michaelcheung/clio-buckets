@@ -22,7 +22,6 @@
       <label> Department
         <select
            ng-model="ctrl.departmentId"
-           ng-change="ctrl.selectDepartment(ctrl.departmentId)"
            ng-options="option.id as option.name for option in ctrl.departments">
         </select>
       </label>
@@ -69,7 +68,7 @@
         <label> Users
           <select
              ng-model="ctrl.user"
-             ng-change="ctrl.selectUser(ctrl.user.id)"
+             ng-change="ctrl.selectUser()"
              ng-options="option as option.full_name for option in ctrl.users">
           </select>
         </label>

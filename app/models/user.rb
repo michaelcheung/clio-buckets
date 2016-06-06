@@ -20,21 +20,21 @@ class User < ActiveRecord::Base
 
   def self.find_for_manager(manager, id)
     User.find(id).tap do |user|
-      manager = user.manager
-      while manager != current_user
+      user_manager = user.manager
+      while user_manager != manager
         raise ActiveRecord::RecordNotFound if manager.nil?
-        manager = manager.manager
+        user_manager = user_manager.manager
       end
     end
   end
 
   def update_roles(ids)
-    return if ids.nil?
-    roles = department.roles.where(id: ids).pluck(:id)
-    all_roles = roles.pluck(:id)
+    ids ||= []
+    role_ids = department.roles.where(id: ids).pluck(:id)
+    all_role_ids = roles.pluck(:id)
 
-    user_roles.where(id: all_roles - roles).delete_all
-    (roles - all_roles).each{|r| user_roles.create!(role_id: r) }
+    user_roles.where(role_id: all_role_ids - role_ids).delete_all
+    (role_ids - all_role_ids).each{|r| user_roles.create!(role_id: r) }
 
   end
 

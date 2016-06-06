@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def update
     user = User.find_for_manager(current_user, params.require(:id))
     
-    user.update_roles(params[:roles])
+    user.update_roles(params[:roles]) if params.key?(:roles)
 
     render json: user
   end

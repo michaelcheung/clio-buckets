@@ -42,10 +42,6 @@ app.controller("StupidController", function($http){
     6: "Specialist",
   }
 
-  ctrl.selectDepartment = function(id){    
-    ctrl.departmentId = id
-  }
-
   ctrl.selectAction = function(action){
     if(action == "Users"){
       ctrl.findUsers();
@@ -65,7 +61,7 @@ app.controller("StupidController", function($http){
   ctrl.updateUserRoles = function(){
     var userRoles = ctrl.user.roles.map(function(e){ return e.id });
     $http.put("/users/"+ctrl.user.id+".json", { roles: userRoles }).then(function(response){
-
+      ctrl.selectUser()
     });    
   }
 
@@ -85,11 +81,11 @@ app.controller("StupidController", function($http){
     });
   }
 
-  ctrl.selectUser = function(id){    
-    $http.get("/users/"+id+"/competencies").then(function(response){
+  ctrl.selectUser = function(){    
+    $http.get("/users/"+ctrl.user.id+"/competencies").then(function(response){
       ctrl.userCompetencies = response.data
     });
-    $http.get("/users/"+id+"/grants").then(function(response){
+    $http.get("/users/"+ctrl.user.id+"/grants").then(function(response){
       ctrl.competenciesGranted = {}
       for(i=0; i < response.data.length; i++){
         ctrl.competenciesGranted[response.data[i].competency_id] = true
