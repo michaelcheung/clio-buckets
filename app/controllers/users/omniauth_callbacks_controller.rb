@@ -7,14 +7,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     if user
       sign_in user, event: :authentication
-      redirect_to "/app.html"
+      redirect_to "/"
     else
-      redirect_to "/"      
+      redirect_to "/unauthed.html"      
     end
   end
 
   def failure
-    redirect_to "/"    
+    redirect_to "/unauthed.html"    
   end
 
 end

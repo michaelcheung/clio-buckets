@@ -1,6 +1,19 @@
 var app = angular.module("clioBucketsApp", []);
 
 // Setup an interceptor that detects unauthorized and sends them to the login page
+app.service("loggedOutInterceptor", function(){
+  return {
+    responseError: function(response){
+      if(response.status == 401){
+        window.location = "/unauthed.html"
+      }        
+    }
+  }
+});
+
+app.config(function($httpProvider){
+  $httpProvider.interceptors.push('loggedOutInterceptor');
+});
 
 app.controller("StupidController", function($http){
   var ctrl = this
