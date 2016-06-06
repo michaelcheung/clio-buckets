@@ -696,5 +696,7 @@ UserRole.create!([
   {id: 44, user_id: 107, role_id: 4},
   {id: 45, user_id: 193, role_id: 4},
   {id: 46, user_id: 173, role_id: 4},
-  {id: 47, user_id: 282, role_id: 4}
+  {id: 47, user_id: 282, role_id: 4},
+  {id: 48, user_id: 44, role_id: 6},
+  {id: 49, user_id: 89, role_id: 6}
 ])
