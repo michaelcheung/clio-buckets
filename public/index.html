@@ -35,7 +35,7 @@
       </label>
 
       <div ng-if="ctrl.action == 'Competencies'">
-        <h2> Competencies <a href> New </a>  </h2>
+        <h2> Competencies </h2>
         <label ng-if="ctrl.departmentId"> Rank
           <select
              ng-model="ctrl.competencyRank"
@@ -56,7 +56,6 @@
             <td> {{ c.name }} </td>
             <td> {{ c.category }} </td>
             <td> 
-              <a href> Edit </a> 
             </td>
           </tr>
         </table>
