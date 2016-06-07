@@ -2,7 +2,7 @@ class GrantsController < ApplicationController
 
   def index
     user = User.find(params.require(:user_id))
-    grants = user.received_grants.limit(100)
+    grants = user.received_grants.preload(:competency, :grantee, :granter, :secondary_granter).limit(100)
     render json: grants
   end
 
