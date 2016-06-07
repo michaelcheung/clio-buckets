@@ -6,8 +6,8 @@ class CompetenciesController < ApplicationController
     else
       scope = Department.find(params.require(:department_id)).competencies
     end
-    @competencies = scope.limit(200).order(:rank)
-    render json: @competencies
+    competencies = scope.limit(200).order(:rank)
+    render json: competencies
   end
 
 end

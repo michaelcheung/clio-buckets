@@ -80,7 +80,7 @@
           </label>
           <button ng-click="ctrl.updateUserRoles()"> Update </button>
         </div>
-        <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.id] && ctrl.recommendedGrants">
+        <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.id] && ctrl.recommendedGrants.length">
           <h3> Recommendations </h3>
           <dl>
             <dt ng-repeat-start="grant in ctrl.recommendedGrants">
