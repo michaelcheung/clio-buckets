@@ -45,18 +45,13 @@
         <table>
           <tr>
             <th> Rank </th>
-            <th> Competency </th>
             <th> Category </th>
-            <th> 
-              Actions
-            </th>
+            <th> Competency </th>
           </tr>
           <tr ng-repeat="c in ctrl.competencies | filter: { rank: ctrl.competencyRank}  | orderBy: ['rank', 'category', 'name']">
-            <td> {{ ctrl.rankMap[c.rank] }} </td>
-            <td> {{ c.name }} </td>
-            <td> {{ c.category }} </td>
-            <td> 
-            </td>
+            <td style="width: 25%"> {{ ctrl.rankMap[c.rank] }} </td>
+            <td style="width: 25%"> {{ c.category }} </td>
+            <td style="width: 25%"> {{ c.name }} </td>
           </tr>
         </table>
       </div>
@@ -94,16 +89,16 @@
         <table ng-if="ctrl.user">
           <tr>
             <th> Rank </th>
-            <th> Competency </th>
             <th> Category </th>
+            <th> Competency </th>
             <th> Granted? </th>
             <th> Actions </th>
           </tr>
           <tr ng-repeat="c in ctrl.userCompetencies | orderBy: ['rank', 'category', 'name']">
             <td> {{ ctrl.rankMap[c.rank] }} </td>
-            <td> {{ c.name }} </td>
             <td> {{ c.category }} </td>
-            <td> {{ ctrl.competenciesGranted[c.id] || "No" }} </td>
+            <td style="width: 25%"> {{ c.name }} </td>
+            <td style="width: 25%"> {{ ctrl.competenciesGranted[c.id] || "No" }} </td>
             <td> 
               <a 
                  ng-if="ctrl.userDepartmentId == ctrl.departmentId && (!ctrl.competenciesGranted[c.id] || ctrl.competenciesGranted[c.id] === 'No')" 
