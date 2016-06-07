@@ -99,9 +99,9 @@ app.controller("StupidController", function($http){
       for(i=0; i < response.data.length; i++){
         grant = response.data[i]
         if(grant.approved) {
-          ctrl.competenciesGranted[grant.competency_id] = "Yes"
+          ctrl.competenciesGranted[grant.competency_id] = "Yes - " + grant.reason
         } else if(grant.approved === null) {
-          ctrl.competenciesGranted[grant.competency_id] = "Recommended"
+          ctrl.competenciesGranted[grant.competency_id] = "Recommended - " + grant.reason
           ctrl.recommendedGrants.push(grant)
         } else {
           ctrl.competenciesGranted[grant.competency_id] = "No"
@@ -114,9 +114,9 @@ app.controller("StupidController", function($http){
     $http.post("/users/"+ctrl.user.id+"/grants", { reason: "", competency_id: competencyId }).then(function(response){
       grant = response.data
       if(grant.approved) {
-        ctrl.competenciesGranted[grant.competency_id] = "Yes"
+        ctrl.competenciesGranted[grant.competency_id] = "Yes - " + grant.reason
       } else if(grant.approved === null) {
-        ctrl.competenciesGranted[grant.competency_id] = "Recommended"
+        ctrl.competenciesGranted[grant.competency_id] = "Recommended - " + grant.reason
       } else {
         ctrl.competenciesGranted[grant.competency_id] = "No"
       }
@@ -133,7 +133,7 @@ app.controller("StupidController", function($http){
         }
       }
       if(grant.approved) {
-        ctrl.competenciesGranted[grant.competency_id] = "Yes"
+        ctrl.competenciesGranted[grant.competency_id] = "Yes - " + grant.reason
       } else {
         ctrl.competenciesGranted[grant.competency_id] = "No"
       }
