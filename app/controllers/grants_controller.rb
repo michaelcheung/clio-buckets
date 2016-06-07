@@ -15,4 +15,15 @@ class GrantsController < ApplicationController
     render json: grant                      
   end
 
+  def update
+    grant = Grant.find(params.require(:id))
+    raise ActiveRecord::RecordNotFound unless grant.grantee.managers.include?(current_user)
+    
+    grant.secondary_granter = current_user
+    grant.approved = [true, "true"].include?(params[:approved])
+    grant.save!
+    render json: grant
+
+  end
+
 end

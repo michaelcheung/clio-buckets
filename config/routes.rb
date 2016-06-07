@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :roles, only: [:index]
     resources :users, only: [:index]
   end
+
+  resources :grants, only: [:update]
   
   resources :users, only: [:update] do
     collection do

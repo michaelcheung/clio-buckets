@@ -95,12 +95,14 @@ app.controller("StupidController", function($http){
     });
     $http.get("/users/"+ctrl.user.id+"/grants").then(function(response){
       ctrl.competenciesGranted = {}
+      ctrl.recommendedGrants = []
       for(i=0; i < response.data.length; i++){
         grant = response.data[i]
         if(grant.approved) {
           ctrl.competenciesGranted[grant.competency_id] = "Yes"
         } else if(grant.approved === null) {
           ctrl.competenciesGranted[grant.competency_id] = "Recommended"
+          ctrl.recommendedGrants.push(grant)
         } else {
           ctrl.competenciesGranted[grant.competency_id] = "No"
         }
@@ -118,8 +120,24 @@ app.controller("StupidController", function($http){
       } else {
         ctrl.competenciesGranted[grant.competency_id] = "No"
       }
-    });
-    
+    });    
+  }
+
+  ctrl.updateGrant = function(grantId, approved){
+    $http.put("/grants/"+grantId+".json", { approved: approved}).then(function(response){
+      grant = response.data
+      for(var i=0; i < ctrl.recommendedGrants.length; i++){
+        if(ctrl.recommendedGrants[i].id == grant.id){
+          ctrl.recommendedGrants.splice(i, 1)
+          break
+        }
+      }
+      if(grant.approved) {
+        ctrl.competenciesGranted[grant.competency_id] = "Yes"
+      } else {
+        ctrl.competenciesGranted[grant.competency_id] = "No"
+      }
+    });    
   }
 
   return
