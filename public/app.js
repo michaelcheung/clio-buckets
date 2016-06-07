@@ -37,6 +37,7 @@ app.controller("StupidController", function($http){
     for(i=0; i < response.data.direct_reports.length; i++){
       ctrl.directReports[response.data.direct_reports[i].id] = true
     }
+    ctrl.userDepartmentId = response.data.department_id
   });
 
   ctrl.rankMap = {
