@@ -1,20 +1,22 @@
 <div class="edit-modal">
-    <h3>Recommend Compentency</h3>
+    <h3> {{ ctrl.directReports[ctrl.user.value] ? 'Grant' : 'Recommend' }} Compentency</h3>
     <span class="fa fa-times" ng-click="modal.dismiss()"></span>
   <div class="actions">
     <div>
-      <span class="grant-category">Tier: {{modal.context.rank}}</span>
-      <span class="grant-category">Category: {{modal.context.category}}</span>
+      <span class="grant-category">Tier: {{modal.context.competency.rank}}</span>
+      <span class="grant-category">Category: {{modal.context.competency.category}}</span>
     </div>
-    <div class="grant-name">{{modal.context.name}}</div>
+    <div class="grant-name">{{modal.context.competency.name}}</div>
     <th-textarea
-      ng-model="modal.context.reason"
+      ng-model="modal.context.grant.reason"
       with-label="Reason"
       rows="10"
       >
     </th-textarea>
-    <th-button type="create" ng-click="modal.confirm(modal.context)">Submit</th-button>
+    <th-button type="create" ng-if="!modal.context.grant.approved && modal.context.canGrant" 
+               ng-click="modal.confirm(modal.context.competency, modal.context.grant, true)"> Grant </th-button>
+    <th-button type="create" ng-if="!modal.context.grant.approved" 
+               ng-click="modal.confirm(modal.context.competency, modal.context.grant)">Recommend</th-button>
     <th-button type="cancel" ng-click="modal.dismiss()">Cancel</th-button>
   </div>
-
 </div>

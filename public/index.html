@@ -78,33 +78,22 @@
               </th-table-cell>
 
               <th-table-cell>
-                <span ng-switch on="ctrl.competenciesGranted[item.id]">
-                  <span
-                    class="granted-cell"
-                    ng-switch-when="'Yes'"
-                    >
-                    <i class="fa fa-check-circle-o"></i>
-                    <span>Yes</span>
-                  </span>
-                  <span
-                    class="granted-cell"
-                    ng-switch-when="Recommended"
-                    >
-                    <i class="fa fa-question-circle"></i>
-                    <span>Recommended</span>
-                  </span>
-                  <span
-                    class="granted-cell"
-                    ng-switch-default
-                    >
-                    <i class="fa fa-times-circle-o"></i>
-                    <span>No</span>
-                  </span>
+                <span ng-if="ctrl.competenciesGranted[item.id].approved" class="granted-cell">
+                <i class="fa fa-check-circle-o"></i>
+                <span>Yes</span>
+                </span>
+                <span ng-if="ctrl.competenciesGranted[item.id] && ctrl.competenciesGranted[item.id].approved == null" class="granted-cell">
+                  <i class="fa fa-question-circle"></i>
+                  <span>Recommended</span>
+                </span>
+                <span ng-if="!ctrl.competenciesGranted[item.id] || ctrl.competenciesGranted[item.id].approved == false" class="granted-cell">
+                  <i class="fa fa-times-circle-o"></i>
+                  <span>No</span>
                 </span>
               </th-table-cell>
               <th-table-cell>
-                <th-button ng-click="ctrl.openGrantModal(item)" condensed="true">
-                  {{ ctrl.directReports[ctrl.user.id] ? 'Grant' : 'Recommend' }}
+                <th-button ng-click="ctrl.openGrantModal(item, ctrl.competenciesGranted[item.id])" condensed="true">
+                  {{ ctrl.directReports[ctrl.user.value] ? 'Grant' : 'Recommend' }}
                 </th-button>
               </th-table-cell>
             </th-table-row>
@@ -152,9 +141,8 @@
               </th-table-cell>
             </th-table-row>
           </th-table>
-        </div>
-
-        <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.id] && ctrl.recommendedGrants.length">
+        </div>        
+        <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.value] && ctrl.recommendedGrants.length">
           <h3> Recommendations </h3>
           <dl>
             <dt ng-repeat-start="grant in ctrl.recommendedGrants">

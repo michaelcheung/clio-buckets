@@ -191,13 +191,7 @@ app.controller("StupidController",
           ctrl.competenciesGranted = {}
           for(i=0; i < response.data.length; i++){
             grant = response.data[i]
-            if(grant.approved) {
-              ctrl.competenciesGranted[grant.competency_id] = "Yes"
-            } else if(grant.approved === null) {
-              ctrl.competenciesGranted[grant.competency_id] = "Recommended"
-            } else {
-              ctrl.competenciesGranted[grant.competency_id] = "No"
-            }
+            ctrl.competenciesGranted[grant.competency_id] = grant
           }
         });
       })
@@ -210,12 +204,12 @@ app.controller("StupidController",
         && ctrl.action.name == 'Users'
     }
 
-    ctrl.openGrantModal = function(competency) {
+    ctrl.openGrantModal = function(competency, grant) {
        ModalManager.show({
         path: "/users/"+ctrl.user.value+"/grants/edit_modal",
-        context: competency
-      }).then(function(data) {
-        ctrl.createGrant(data);
+        context: { competency: competency, grant: grant, canGrant: ctrl.directReports[ctrl.user.value] }
+      }).then(function(competency, grant) {
+        ctrl.createGrant(competency, grant);
       });
     }
 
@@ -226,19 +220,13 @@ app.controller("StupidController",
       });
     }
 
-    ctrl.createGrant = function(competency){
+    ctrl.createGrant = function(competency, grant){
       $http.post(
         "/users/"+ctrl.user.value+"/grants",
         {reason: competency.reason, competency_id: competency.id}
       ).then(function(response){
-        grant = response.data                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-        if(grant.approved) {
-          ctrl.competenciesGranted[grant.competency_id] = "Yes"
-        } else if(grant.approved === null) {
-          ctrl.competenciesGranted[grant.competency_id] = "Recommended"
-        } else {
-          ctrl.competenciesGranted[grant.competency_id] = "No"
-        }
+        grant = response.data
+        ctrl.competenciesGranted[grant.competency_id] = grant
       });
     }
 
