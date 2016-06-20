@@ -13,10 +13,10 @@
       rows="10"
       >
     </th-textarea>
-    <th-button type="create" ng-if="!modal.context.grant.approved && modal.context.canGrant" 
-               ng-click="modal.confirm(modal.context.competency, modal.context.grant, true)"> Grant </th-button>
-    <th-button type="create" ng-if="!modal.context.grant.approved" 
-               ng-click="modal.confirm(modal.context.competency, modal.context.grant)">Recommend</th-button>
+    <th-button type="create" ng-if="modal.context.canGrant" 
+               ng-click="modal.confirm(modal.context)"> Grant </th-button>
+    <th-button type="create" ng-if="!modal.context.canGrant" 
+               ng-click="modal.confirm(modal.context)">Recommend</th-button>
     <th-button type="cancel" ng-click="modal.dismiss()">Cancel</th-button>
   </div>
 </div>

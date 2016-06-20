@@ -25,6 +25,7 @@ class GrantsController < ApplicationController
     
     grant.secondary_granter = current_user
     grant.approved = [true, "true"].include?(params[:approved])
+    grant.reason = params[:reason] if params[:reason]
     grant.save!
     render json: grant
 

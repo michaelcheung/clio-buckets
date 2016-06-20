@@ -208,8 +208,14 @@ app.controller("StupidController",
        ModalManager.show({
         path: "/users/"+ctrl.user.value+"/grants/edit_modal",
         context: { competency: competency, grant: grant, canGrant: ctrl.directReports[ctrl.user.value] }
-      }).then(function(competency, grant) {
-        ctrl.createGrant(competency, grant);
+      }).then(function(context) {
+        competency = context.competency
+        grant = context.grant
+        if(grant && grant.id){
+          ctrl.updateGrant(grant, true);
+        } else {
+          ctrl.createGrant(competency, grant);
+        }
       });
     }
 
@@ -223,12 +229,18 @@ app.controller("StupidController",
     ctrl.createGrant = function(competency, grant){
       $http.post(
         "/users/"+ctrl.user.value+"/grants",
-        {reason: competency.reason, competency_id: competency.id}
+        {reason: grant.reason, competency_id: competency.id}
       ).then(function(response){
         grant = response.data
         ctrl.competenciesGranted[grant.competency_id] = grant
       });
     }
 
+    ctrl.updateGrant = function(grant, approved){
+      $http.put("/grants/"+grant.id+".json", { reason: grant.reason, approved: approved}).then(function(response){
+        grant = response.data
+        ctrl.competenciesGranted[grant.competency_id] = grant
+      });    
+    }
     return
 });
