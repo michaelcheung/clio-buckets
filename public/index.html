@@ -142,18 +142,6 @@
             </th-table-row>
           </th-table>
         </div>        
-        <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.value] && ctrl.recommendedGrants.length">
-          <h3> Recommendations </h3>
-          <dl>
-            <dt ng-repeat-start="grant in ctrl.recommendedGrants">
-              {{ grant.granter.full_name }}
-            </dt>
-            <dd ng-repeat-end>
-              <p> Reason: {{ grant.reason }} </p>
-              <p> Actions: <a href="#" ng-click="ctrl.updateGrant(grant.id, true)"> Approve </a> or <a href="#" ng-click="ctrl.updateGrant(grant.id, false)"> Reject </a> </p>
-            </dd>
-          </dl>
-        </div>
       </div>
     </div>
     <th-modal-anchor></th-modal-anchor>
