@@ -1,20 +1,22 @@
-## JavaScript
+== README
 
-### NPM
+== JavaScript
+
+=== NPM
 NPM is used to manage the JavaScript modules and lock their versions.
-- [Usage](https://docs.npmjs.com/cli/#cli)
+* {Usage}[https://docs.npmjs.com/cli/#cli]
 
-### Angular
+=== Angular
 Angular is our chosen client side framework. We are using the most recent verion.
-- [Tutorial](https://docs.angularjs.org/tutorial)
-- [Guide](https://docs.angularjs.org/guide)
-- [API](https://docs.angularjs.org/api)
+* {Tutorial}[https://docs.angularjs.org/tutorial]
+* {Guide}[https://docs.angularjs.org/guide]
+* {API}[https://docs.angularjs.org/api]
 
-### Browserify
+=== Browserify
 Browserify enables Node style CommonJS patterns to work in the browser.
 
-### Getting Started
-- Run `npm install` to install all the required node dependencies.
-- Run `npm start` to watch our frontend files. On change this service will re-compile
+=== Getting Started
+* Run <tt>npm install</tt> to install all the required node dependencies.
+* Run <tt>npm start</tt> to watch our frontend files. On change this service will re-compile
 the JS/CSS files
 
