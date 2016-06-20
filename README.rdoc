@@ -2,12 +2,16 @@
 
 == TODO: Features 
 
+* Add tests. (this was done via hackdays and no tests were created in effort to get this out the door asap)
 * Improve the UI (open ended)
 * Style the unauthed page
 * Add the ability to add/edit competencies
 * Have a 'show' page for each competencies with some examples
 * Remove the `StupidController` and break the functionality into smaller (better named) controllers
 * Add the ability to reject a recommendation
+* Add the ability to grant an entire tier/rank at a time 
+* Add the ability to get a list of all grants and see who they were for, when and why
+* Move this off heroku
 
 == JavaScript
 
