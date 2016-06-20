@@ -1,28 +1,20 @@
-== README
+## JavaScript
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### NPM
+NPM is used to manage the JavaScript modules and lock their versions.
+- [Usage](https://docs.npmjs.com/cli/#cli)
 
-Things you may want to cover:
+### Angular
+Angular is our chosen client side framework. We are using the most recent verion.
+- [Tutorial](https://docs.angularjs.org/tutorial)
+- [Guide](https://docs.angularjs.org/guide)
+- [API](https://docs.angularjs.org/api)
 
-* Ruby version
+### Browserify
+Browserify enables Node style CommonJS patterns to work in the browser.
 
-* System dependencies
+### Getting Started
+- Run `npm install` to install all the required node dependencies.
+- Run `npm start` to watch our frontend files. On change this service will re-compile
+the JS/CSS files
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
