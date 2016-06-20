@@ -1,79 +1,159 @@
-<html ng-app="clioBucketsApp">
+<html ng-app="clioBucketsApp" ng-cloak>
   <head>
     <title> Clio Buckets </title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="/app.js"></script>
-    <style>
-      table, th, td {
-        border: 1px solid black;
-      }
-      html {
-        font-family: "Comic Sans MS", "Comic Sans", cursive;
-      }
-
-    </style>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/compiled.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
   <body>
-    <h1> The app </h1>  
-    <h3 ng-controller="LogoutDirective as ctrl"> 
-      <a href="#logout" ng-click="ctrl.logout()"> Logout </a>
-    </h3>
-    <div ng-controller="StupidController as ctrl">
-      <label> Department
-        <select
-           ng-model="ctrl.departmentId"
-           ng-options="option.id as option.name for option in ctrl.departments">
-        </select>
-      </label>
-      <label ng-if="ctrl.departmentId"> Action
-        <select
-           ng-model="ctrl.action"
-           ng-change="ctrl.selectAction(ctrl.action)">
-          <option value="Competencies"> Competencies </option>
-          <option value="Users"> Users </option>
-        </select>
-      </label>
-
-      <div ng-if="ctrl.action == 'Competencies'">
-        <h2> Competencies </h2>
-        <label ng-if="ctrl.departmentId"> Rank
-          <select
-             ng-model="ctrl.competencyRank"
-             ng-options="key as value for (key, value) in ctrl.rankMap">
-          </select>
-        </label>
-        <table>
-          <tr>
-            <th> Rank </th>
-            <th> Category </th>
-            <th> Competency </th>
-          </tr>
-          <tr ng-repeat="c in ctrl.competencies | filter: { rank: ctrl.competencyRank}  | orderBy: ['rank', 'category', 'name']">
-            <td style="width: 25%"> {{ ctrl.rankMap[c.rank] }} </td>
-            <td style="width: 25%"> {{ c.category }} </td>
-            <td style="width: 25%"> {{ c.name }} </td>
-          </tr>
-        </table>
-      </div>
-
-      <div ng-if="ctrl.action == 'Users'">
-        <label> Users
-          <select
-             ng-model="ctrl.user"
-             ng-change="ctrl.selectUser()"
-             ng-options="option as option.full_name for option in ctrl.users">
-          </select>
-        </label>
-        <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.id]">
-          <label> Update Roles
-            <select
-               multiple="multiple"
-               ng-model="ctrl.user.roles"
-               ng-options="option as option.name for option in ctrl.roles track by option.id">
-            </select>
-          </label>
-          <button ng-click="ctrl.updateUserRoles()"> Update </button>
+    <div class="content"  ng-controller="StupidController as ctrl">
+      <th-content-header title="Clio Tech Buckets">
+        <div ng-controller="LogoutDirective as logoutCtrl">
+          <th-button ng-click="logoutCtrl.logout()">Logout</th-button>
         </div>
+      </th-content-header>
+
+      <div>
+        <div class="width-300">
+          <th-select
+            with-label="Department"
+            ng-model="ctrl.department"
+            options="ctrl.departmentsArray"
+            placeholder="Pick..."
+            >
+          </th-select>
+        </div>
+        <div class="width-300" ng-if="ctrl.department">
+          <th-select
+            with-label="Action"
+            ng-change="ctrl.selectAction()"
+            ng-model="ctrl.action"
+            options="ctrl.actions"
+            placeholder="Pick..."
+            >
+          </th-select>
+        </div>
+        <div class="width-300" ng-if="ctrl.department && ctrl.action.value == 'Users'">
+          <th-select
+            with-label="Users"
+            ng-model="ctrl.user"
+            options="ctrl.users"
+            placeholder="Pick..."
+            ng-change="ctrl.selectUser()"
+            >
+          </th-select>
+        </div>
+
+        <div ng-if="ctrl.showUserCompentencyTable()">
+          <th-tabset>
+            <th-tab name="All" ng-click="ctrl.filterUserCompetencyTable(-1)">
+            </th-tab>
+            <th-tab name="Tech I" ng-click="ctrl.filterUserCompetencyTable(0)">
+            </th-tab>
+            <th-tab name="Tech I+" ng-click="ctrl.filterUserCompetencyTable(1)">
+            </th-tab>
+            <th-tab name="Tech II" ng-click="ctrl.filterUserCompetencyTable(2)">
+            </th-tab>
+            <th-tab name="Tech II+" ng-click="ctrl.filterUserCompetencyTable(3)">
+            </th-tab>
+            <th-tab name="Tech III" ng-click="ctrl.filterUserCompetencyTable(4)">
+            </th-tab>
+            <th-tab name="Tech III+" ng-click="ctrl.filterUserCompetencyTable(5)">
+            </th-tab>
+            <th-tab name="Specialist" ng-click="ctrl.filterUserCompetencyTable(6)">
+            </th-tab>
+          </th-tabset>
+          <th-table delegate="ctrl.userCompetencyTableDelegate">
+            <th-table-row type="cells">
+              <th-table-cell>
+                {{ctrl.rankMap[item.rank]}}
+              </th-table-cell>
+
+              <th-table-cell>
+                {{item.name}}
+              </th-table-cell>
+
+              <th-table-cell>
+                {{item.category}}
+              </th-table-cell>
+
+              <th-table-cell>
+                <span ng-switch on="ctrl.competenciesGranted[item.id]">
+                  <span
+                    class="granted-cell"
+                    ng-switch-when="'Yes'"
+                    >
+                    <i class="fa fa-check-circle-o"></i>
+                    <span>Yes</span>
+                  </span>
+                  <span
+                    class="granted-cell"
+                    ng-switch-when="Recommended"
+                    >
+                    <i class="fa fa-question-circle"></i>
+                    <span>Recommended</span>
+                  </span>
+                  <span
+                    class="granted-cell"
+                    ng-switch-default
+                    >
+                    <i class="fa fa-times-circle-o"></i>
+                    <span>No</span>
+                  </span>
+                </span>
+              </th-table-cell>
+              <th-table-cell>
+                <th-button ng-click="ctrl.openGrantModal(item)" condensed="true">
+                  {{ ctrl.directReports[ctrl.user.id] ? 'Grant' : 'Recommend' }}
+                </th-button>
+              </th-table-cell>
+            </th-table-row>
+          </th-table>
+        </div>
+        <div class="tabset" ng-if="ctrl.action.value == 'Competencies'">
+          <th-tabset>
+            <th-tab name="All" ng-click="ctrl.filterCompetencyTable(-1)">
+            </th-tab>
+            <th-tab name="Tech I" ng-click="ctrl.filterCompetencyTable(0)">
+            </th-tab>
+            <th-tab name="Tech I+" ng-click="ctrl.filterCompetencyTable(1)">
+            </th-tab>
+            <th-tab name="Tech II" ng-click="ctrl.filterCompetencyTable(2)">
+            </th-tab>
+            <th-tab name="Tech II+" ng-click="ctrl.filterCompetencyTable(3)">
+            </th-tab>
+            <th-tab name="Tech III" ng-click="ctrl.filterCompetencyTable(4)">
+            </th-tab>
+            <th-tab name="Tech III+" ng-click="ctrl.filterCompetencyTable(5)">
+            </th-tab>
+            <th-tab name="Specialist" ng-click="ctrl.filterCompetencyTable(6)">
+            </th-tab>
+          </th-tabset>
+          <th-button href="#" type="create">New</th-button>
+
+          <th-table delegate="ctrl.competencyTableDelegate"
+            ng-if="ctrl.competencytableGenerated"
+            >
+            <th-table-row type="cells">
+              <th-table-cell>
+                {{ctrl.rankMap[item.rank]}}
+              </th-table-cell>
+
+              <th-table-cell>
+                {{item.name}}
+              </th-table-cell>
+
+              <th-table-cell>
+                {{item.category}}
+              </th-table-cell>
+
+              <th-table-cell>
+                <th-button ng-click="ctrl.openCompetencyModal(item)">edit</th-button>
+              </th-table-cell>
+            </th-table-row>
+          </th-table>
+        </div>
+
         <div ng-if="ctrl.user && ctrl.directReports[ctrl.user.id] && ctrl.recommendedGrants.length">
           <h3> Recommendations </h3>
           <dl>
@@ -86,30 +166,10 @@
             </dd>
           </dl>
         </div>
-        <table ng-if="ctrl.user">
-          <tr>
-            <th> Rank </th>
-            <th> Category </th>
-            <th> Competency </th>
-            <th> Granted? </th>
-            <th> Actions </th>
-          </tr>
-          <tr ng-repeat="c in ctrl.userCompetencies | orderBy: ['rank', 'category', 'name']">
-            <td> {{ ctrl.rankMap[c.rank] }} </td>
-            <td> {{ c.category }} </td>
-            <td style="width: 25%"> {{ c.name }} </td>
-            <td style="width: 25%"> {{ ctrl.competenciesGranted[c.id] || "No" }} </td>
-            <td> 
-              <a 
-                 ng-if="ctrl.userDepartmentId == ctrl.departmentId && (!ctrl.competenciesGranted[c.id] || ctrl.competenciesGranted[c.id] === 'No')" 
-                 href="#" 
-                 ng-click="ctrl.createGrant(c.id)"> 
-                {{ ctrl.directReports[ctrl.user.id] ? 'Grant' : 'Recommend' }}
-              </a> 
-            </td>
-          </tr>
-        </table>
       </div>
     </div>
+    <th-modal-anchor></th-modal-anchor>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="/compiled.js"></script>
   </body>
 </html>

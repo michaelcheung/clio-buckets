@@ -10,4 +10,8 @@ class CompetenciesController < ApplicationController
     render json: competencies
   end
 
+  def edit_modal
+    render layout: false
+  end
+
 end

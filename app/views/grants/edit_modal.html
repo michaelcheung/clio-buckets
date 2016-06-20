@@ -1,0 +1,20 @@
+<div class="edit-modal">
+    <h3>Recommend Compentency</h3>
+    <span class="fa fa-times" ng-click="modal.dismiss()"></span>
+  <div class="actions">
+    <div>
+      <span class="grant-category">Tier: {{modal.context.rank}}</span>
+      <span class="grant-category">Category: {{modal.context.category}}</span>
+    </div>
+    <div class="grant-name">{{modal.context.name}}</div>
+    <th-textarea
+      ng-model="modal.context.reason"
+      with-label="Reason"
+      rows="10"
+      >
+    </th-textarea>
+    <th-button type="create" ng-click="modal.confirm(modal.context)">Submit</th-button>
+    <th-button type="cancel" ng-click="modal.dismiss()">Cancel</th-button>
+  </div>
+
+</div>

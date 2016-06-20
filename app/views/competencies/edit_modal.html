@@ -1,0 +1,33 @@
+<div
+  class="edit-modal"
+  ng-controller="editCompetencyModalController as ctrl"
+  ng-init="ctrl.competency = modal.context"
+  >
+
+    <h3>Edit Competency</h3>
+    <span class="fa fa-times" ng-click="modal.dismiss()"></span>
+  <div class="actions">
+    <div>
+    </div>
+    <th-select
+      ng-model="ctrl.competency.rank"
+      with-label="Tier"
+      options="ctrl.options"
+      >
+    </th-select>
+    <th-input
+      ng-model="modal.context.category"
+      with-label="Category"
+      >
+    </th-input>
+    <th-textarea
+      ng-model="modal.context.name"
+      with-label="Description"
+      rows="5"
+      >
+    </th-textarea>
+    <th-button type="create" ng-click="modal.confirm(modal.context)">Submit</th-button>
+    <th-button type="cancel" ng-click="modal.dismiss()">Cancel</th-button>
+  </div>
+
+</div>

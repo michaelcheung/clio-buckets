@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+sudo apt-get -qq -y update
+
+sudo apt-get -qq -y install git-core curl zlib1g-dev build-essential libssl-dev \
+  libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev \
+  libcurl4-openssl-dev python-software-properties libffi-dev
+
+COMPLILE_RUBY=false
+
+if [ "$COMPLILE_RUBY"  = true ]; then
+  mkdir -p /tmp/ruby-install
+  cd /tmp/ruby-install
+
+  wget --quiet http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.4.tar.gz
+  tar -xzf ruby-2.1.4.tar.gz
+  cd ruby-2.1.4
+
+  ./configure
+  make
+  sudo make install
+
+
+  rm -rf /tmp/ruby-install
+else
+  curl -s https://s3.amazonaws.com/pkgr-buildpack-ruby/current/debian-7/ruby-2.1.5.tgz -o - | sudo tar xzf - -C /usr/local
+fi
+
+echo "gem: --no-document" > ~/.gemrc
+
+sudo gem install bundler -v 1.10.6
+
+echo "require 'irb/completion'" >> ~/.irbrc
+echo "IRB.conf[:SAVE_HISTORY] = 1000" >> ~/.irbrc
+
+# Reference:
+# - https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-nginx-on-ubuntu-14-04#step-four-—-install-ruby
+# - https://gorails.com/setup/ubuntu/14.10

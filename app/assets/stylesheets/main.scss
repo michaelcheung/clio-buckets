@@ -1,0 +1,95 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: auto;
+}
+.content {
+  /*min-width: 1014px;*/
+  margin: 15px;
+}
+.width-300 {
+  width: 300px;
+  display: inline-block;
+  margin: 15px 20px 15px 0;
+}
+.th-tab-bar a {
+  margin-right: 15px !important;
+  font-size: 20px !important;
+}
+.th-tabset {
+  margin-bottom: 25px;
+}
+
+.tabset {
+  position: relative;
+}
+.tabset a.th-button {
+  position: absolute;
+  top: -10px;
+  right: 25px;
+}
+
+.granted-cell {
+  .fa {
+    font-size: 22px !important;
+    margin: -5px;
+    vertical-align: bottom;
+  }
+  .fa-times-circle-o { color: $red; }
+  .fa-check-circle-o { color: $green; }
+  .fa-question-circle { color: $yellow; }
+  span {
+    margin-left: 7px;
+    vertical-align: bottom;
+  }
+}
+
+table.th-table .th-table-cells-row td {
+  vertical-align: middle;
+  a {
+    color: $blue;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .th-button {
+    height: 30px;
+    line-height: 30px;
+    font-size: 11px;
+  }
+}
+
+.th-modal .edit-modal {
+  position: relative;
+  h3 {
+    background: grey;
+    margin: 0px;
+    padding: 16px;
+    color: white;
+    font-weight: 600;
+  }
+  .grant-category {
+    border: 1px solid grey;
+    padding: 3px 6px;
+    display: inline-block;
+    margin: 0 6px 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: $blue;
+  }
+  .grant-name {
+    margin: 7px 0 15px 0;
+    font-size: 16px;
+    color: #464646;
+  }
+  .fa-times {
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    font-size: 25px;
+    color: #fff;
+    cursor: pointer;
+  }
+}

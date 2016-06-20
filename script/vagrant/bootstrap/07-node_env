@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+mkdir -p /tmp/node_install
+cd /tmp/node_install
+wget --quiet https://nodejs.org/dist/v6.2.0/node-v6.2.0-linux-x64.tar.xz
+
+sudo tar -C /usr/local --strip-components 1 -xf node-v6.2.0-linux-x64.tar.xz
+sudo npm install -g npm@v3.8.8
+
+rm -rf /tmp/node_install

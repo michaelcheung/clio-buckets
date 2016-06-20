@@ -12,7 +12,11 @@ class GrantsController < ApplicationController
     grant = Grant.new(grantee: user, granter: current_user, competency: competency, reason: params[:reason])
     grant.approved = true if user.managers.include?(current_user)
     grant.save!
-    render json: grant                      
+    render json: grant
+  end
+
+  def edit_modal
+    render layout: false
   end
 
   def update

@@ -1,0 +1,37 @@
+{
+  "name": "clio-buckets",
+  "version": "1.0.0",
+  "description": "Tech buckets Clio style",
+  "main": "public/app.js",
+  "dependencies": {
+    "browserify": "^13.0.1",
+    "browserify-ngannotate": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-derequire": "^2.1.0",
+    "gulp-rename": "^1.2.2",
+    "lib-ThemisUI": "git://github.com/clio/lib-themisui#v1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "browserify-incremental": "^3.1.1",
+    "derequire": "^2.0.3",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.3.1",
+    "stringify": "^5.1.0"
+  },
+  "scripts": {
+    "start": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doliveirakn/clio-buckets.git"
+  },
+  "author": "Jef Curtis, Kyle d'Oliviera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doliveirakn/clio-buckets/issues"
+  },
+  "homepage": "https://github.com/doliveirakn/clio-buckets#readme"
+}

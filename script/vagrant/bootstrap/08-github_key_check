@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+ssh -o StrictHostKeyChecking=no git@github.com
+
+# If ssh exit code is 127 (which seems to indicate success), manually exit with a value of 0.
+# Vagrant will halt and throw an error otherwise.
+if [ $? -eq 127 ]; then
+  exit 0
+fi
