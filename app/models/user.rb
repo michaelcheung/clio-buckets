@@ -42,4 +42,8 @@ class User < ActiveRecord::Base
 
   end
 
+  def can_manage?(employee)
+    employee.managers.include?(self)
+  end
+
 end

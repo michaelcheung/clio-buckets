@@ -10,7 +10,7 @@ class GrantsController < ApplicationController
     user = current_user.department.users.find(params.require(:user_id))
     competency = user.competencies.find(params[:competency_id])
     grant = Grant.new(grantee: user, granter: current_user, competency: competency, reason: params[:reason])
-    grant.approved = true if user.managers.include?(current_user)
+    grant.approved = true if current_user.can_manage?(user)
     grant.save!
     render json: grant
   end
@@ -21,10 +21,11 @@ class GrantsController < ApplicationController
 
   def update
     grant = Grant.find(params.require(:id))
-    raise ActiveRecord::RecordNotFound unless grant.grantee.managers.include?(current_user)
-    
-    grant.secondary_granter = current_user
-    grant.approved = [true, "true"].include?(params[:approved])
+
+    # If the current user is the same as the granter, the current user is likely
+    # updating a recommendation.
+    grant.secondary_granter = current_user if grant.granter != current_user
+    grant.approved = [true, "true"].include?(params[:approved]) if current_user.can_manage?(grant.grantee)
     grant.reason = params[:reason] if params[:reason]
     grant.save!
     render json: grant
